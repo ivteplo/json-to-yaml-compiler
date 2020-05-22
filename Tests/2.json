@@ -1,0 +1,16 @@
+{
+    "package": "test",
+    "version": "v0.0.1",
+    "description": "Test for \"json-to-yaml-compiler\" project",
+    "dependencies": {},
+    "files": [
+        "index.py",
+        {
+            "Tests": [
+                "1.json",
+                "2.json"
+            ]
+        }
+    ]
+}
+
