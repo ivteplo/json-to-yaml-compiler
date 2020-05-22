@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# 
+# Copyright (c) 2020 Ivan Teplov
+# Licensed under the Apache License, version 2.0
+# 
 import sys
 
 input_file_name = None
