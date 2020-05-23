@@ -271,14 +271,16 @@ with open(output_file_name, "w") as output_file:
     def compile_node(node):
         if node.type == "object":
             for key in node.body:
-                res = key.value[1:-1] + ": "
+                res = ""
+
                 if key.body[0].type in [ "array", "object" ]:
                     res += "\n"
 
                 for i in compile_node(key.body[0]):
-                    res += i
-
+                    res += i.rstrip() + "\n"
+                
                 res = res.replace("\n", "\n  ")
+                res = key.value[1:-1] + ": " + res
                 yield res
         elif node.type == "array":
             for child in node.body:
@@ -288,18 +290,17 @@ with open(output_file_name, "w") as output_file:
                     res += "\n"
 
                 for i in compile_node(child):
-                    if child.type in [ "array", "object" ]:
-                        res += "  "
-                    res += i
+                    res += i.rstrip() + "\n"
 
+                res = res.replace("\n", "\n  ")
                 yield res
         elif node.type == "null":
             yield ""
         else:
             if node.type == "string" and not '"' in node.value:
-                yield node.value[1:-1] + "\n"
+                yield node.value[1:-1]
             else:
-                yield node.value + "\n"
+                yield node.value
 
     for node in nodes:
         for line in compile_node(node):
